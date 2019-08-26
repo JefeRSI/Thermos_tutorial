@@ -1,0 +1,8 @@
+# Default ignored files
+/workspace.xml
+../.idea
+../venv/Include
+../venv/Lib
+../venv/pyenv.cfg
+../Thermos_tutorial.iml
+
