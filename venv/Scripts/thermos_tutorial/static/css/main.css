@@ -69,19 +69,22 @@ body {
     ALL: Orange Theme
    =================== */
 
-.header-container {
-    border-bottom: 20px solid #e44d26;
-}
-
+.header-container,
 .footer-container,
 .main aside {
-    border-top: 20px solid #e44d26;
+    border-bottom: 20px solid #d9c216;
 }
 
 .header-container,
 .footer-container,
 .main aside {
-    background: #f16529;
+    border-top: 20px solid #d9c216;
+}
+
+.header-container,
+.footer-container,
+.main aside {
+    background: #0b3813;
 }
 
 .title {
@@ -107,13 +110,13 @@ nav a {
     text-decoration: none;
     font-weight: bold;
 
-    color: white;
-    background: #e44d26;
+    color: black;
+    background: #d9c216;
 }
 
 nav a:hover,
 nav a:visited {
-    color: white;
+    color: green;
 }
 
 nav a:hover {
