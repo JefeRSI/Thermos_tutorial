@@ -1,6 +1,18 @@
-from flask import Flask, render_template, url_for
+from datetime import datetime
+from flask import Flask, render_template, url_for, request, redirect, flash
+
+from logging import DEBUG
 
 app = Flask(__name__)
+bookmarks = []
+app.config['SECRET_KEY'] = 'LD\xb1\x95\xf2"\x01=\xf1\xbb\xd4\xbe\x19u/\x92$,\xdd\x99\x94\x1b\x04J'
+
+def store_bookmark(url):
+    bookmarks.append(dict(
+        url = url,
+        user = "Jeff",
+        date = datetime.utcnow()
+    ))
 
 class User:
     def __init__(self, firstname, lastname):
@@ -17,8 +29,14 @@ def index():
     return render_template('index.html', title="Hello", user=User("Jeff", "Lucero"))
 
 
-@app.route('/add')
+@app.route('/add', methods=['GET', 'POST'])
 def add():
+    if request.method == "POST":
+        url = request.form['url']
+        store_bookmark(url)
+        flash("Stored bookmark '{}'".format(url))
+        app.logger.debug('stored url: ' + url)
+        return redirect(url_for('index'))
     return render_template('add.html')
 
 
@@ -32,4 +50,4 @@ def server_error(e):
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
