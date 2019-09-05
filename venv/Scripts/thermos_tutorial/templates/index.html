@@ -11,8 +11,16 @@ Python/Flask Tutorial
             <p>Thermos is a social bookmarking site built with python and flask as a tutorial project on Pluralsight</p>
         </header>
         <section>
-            <h2>article section h2</h2>
-            <p>This text is from index.html. Blah Blah Blah</p>
+            <h2>Recently Added Bookmarks</h2>
+            {% if new_bookmarks %}
+                <ul>
+                    {% for bm in new_bookmarks %}
+                    <li>{{ bm.user }} added <a href="{{ bm.url }}">{{ bm.url }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                No bookmarks yet.
+            {% endif %}
         </section>
         <section>
             <h2>article section h2</h2>

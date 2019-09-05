@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask import Flask, render_template, url_for, request, redirect, flash
 
+from forms import BookmarkForm
 from logging import DEBUG
 
 app = Flask(__name__)
@@ -14,6 +15,9 @@ def store_bookmark(url):
         date = datetime.utcnow()
     ))
 
+def new_bookmarks(num):
+    return sorted(bookmarks, key=lambda bm: bm['date'], reverse=True)[:num]
+
 class User:
     def __init__(self, firstname, lastname):
         self.firstname = firstname
@@ -26,18 +30,20 @@ class User:
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title="Hello", user=User("Jeff", "Lucero"))
+    return render_template('index.html', new_bookmarks=new_bookmarks(5))
+
 
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
-    if request.method == "POST":
-        url = request.form['url']
-        store_bookmark(url)
-        flash("Stored bookmark '{}'".format(url))
-        app.logger.debug('stored url: ' + url)
-        return redirect(url_for('index'))
-    return render_template('add.html')
+    form = BookmarkForm()
+    if form.validate_on_submit():
+        url = form.url.data
+        description = form.description.data
+        store_bookmark(url, description)
+        flash("Stored '{}'".format(description))
+        return  redirect(url_for('index'))
+    return render_template('add.html', form=form)
 
 
 @app.errorhandler(404)
