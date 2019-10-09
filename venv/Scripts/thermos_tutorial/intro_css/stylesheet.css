@@ -1,3 +1,26 @@
 body {
-    background-color:Turquoise
+    background-color:Turquoise;
+    background-image:url("/content/bg1.jpg");
+}
+
+h1, h2 {
+    background-color:green
+}
+
+#content {
+    background-color:Plum
+}
+
+.quote {
+    background-color:Orange
+}
+
+div {
+    background-color:#ff0000;
+    border-width:thick;
+    border-radius: 25px;
+}
+
+p {
+    font-size:xx-large;
 }

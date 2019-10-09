@@ -8,11 +8,12 @@ app = Flask(__name__)
 bookmarks = []
 app.config['SECRET_KEY'] = 'LD\xb1\x95\xf2"\x01=\xf1\xbb\xd4\xbe\x19u/\x92$,\xdd\x99\x94\x1b\x04J'
 
-def store_bookmark(url):
+def store_bookmark(url, description):
     bookmarks.append(dict(
         url = url,
         user = "Jeff",
-        date = datetime.utcnow()
+        date = datetime.utcnow(),
+        description = description
     ))
 
 def new_bookmarks(num):
@@ -41,7 +42,8 @@ def add():
         url = form.url.data
         description = form.description.data
         store_bookmark(url, description)
-        flash("Stored '{}'".format(description))
+        flash("Stored: '{}'".format(url))
+        flash("Description: '{}'".format(description))
         return  redirect(url_for('index'))
     return render_template('add.html', form=form)
 
